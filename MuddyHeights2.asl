@@ -11,6 +11,8 @@ init
     vars.Helper.TryLoad = (Func<dynamic, bool>)(mono => 
     {
         vars.Helper["level"] = mono.Make<int>("GameManager", "instance", "currentLevel");
+        vars.Helper["wasFired"] = mono.Make<bool>("GameManager", "instance", "wasFired");
+        vars.Helper["numPoops"] = mono.Make<int>("GameManager", "instance", "numPoops");
         return true;
     });
 }
@@ -18,4 +20,9 @@ init
 split
 {
     return old.level != current.level;
+}
+
+start
+{
+    return (current.level == 0) && (current.wasFired == true) && (current.numPoops == 5);
 }
